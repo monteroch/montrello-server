@@ -1,33 +1,41 @@
 const { buildSchema } = require('graphql');
 
 module.exports = buildSchema(`
+    type Task{
+        _id: String
+        text: String
+        createdAt: String
+        status: String
+    }
 
-type Task{
-    _id: String!
-    text: String!
-    createdAt: String!
-    status: String!
-}
+    input TaskInput{
+        text: String
+        createdAt: String
+        status: String
+    }
 
-input TaskInput{
-    text: String!
-    createdAt: String!
-    status: String!
-}
+    input TaskData{
+        _id: String
+        status: String
+    }
 
-type RootQuery {
-    loadTask(taskId: String): Task
-    loadTasks(): [Task]
-}
+    type taskId{
+        _id: String
+    }
 
-type RootMutation {
-    addTask(TaskInput: TaskInput): String
-    updateTask(taskId: String): String
-    removeTask(taskId: String): String
-}
+    type RootQuery {
+        loadTask(taskId: String): Task
+        loadTasks: [Task]
+    }
 
-schema {
-    query: RootQuery
-    mutation: RootMutation
-}
-`)
+    type RootMutation {
+        createTask(TaskInput: TaskInput): taskId
+        updateTask(TaskData: TaskData): taskId
+        removeTask(taskId: String): taskId
+    }
+
+    schema {
+        query: RootQuery
+        mutation: RootMutation
+    }
+`);
