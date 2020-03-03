@@ -3,7 +3,6 @@ const ObjectId = require('mongodb').ObjectID;
 
 module.exports = {
     createTask: async args => {
-        console.log("THE ARGS ARE: ",  args);
         try{
             let taskId = ObjectId().toString();
             //creating the task
@@ -15,14 +14,12 @@ module.exports = {
             });
             //Saving the task into the database
             const result = await task.save();
-            console.log("The result is: ", result);
             return result;
         }catch(error){
             throw error;
         }
     },
     updateTask: async data => {
-        console.log("The data is: ", data)
         try{
             // MyModel.updateOne({ foo: 'bar' }, { answer: 42 });
             Task.updateOne({_id: data.TaskData._id}, {status: data.TaskData.status})
@@ -32,7 +29,6 @@ module.exports = {
         }
     },
     removeTask: async taskId => {
-        console.log("The taskId is: ", taskId.taskId);
         try{
             Task.deleteOne({_id: taskId.taskId})
             .then( result => console.log(result));
