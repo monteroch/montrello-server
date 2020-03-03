@@ -3,6 +3,7 @@ const ObjectId = require('mongodb').ObjectID;
 
 module.exports = {
     createTask: async args => {
+        console.log("THE ARGS ARE: ",  args);
         try{
             let taskId = ObjectId().toString();
             //creating the task
@@ -14,9 +15,8 @@ module.exports = {
             });
             //Saving the task into the database
             const result = await task.save();
-            return{
-                _id: result._id
-            }
+            console.log("The result is: ", result);
+            return result;
         }catch(error){
             throw error;
         }

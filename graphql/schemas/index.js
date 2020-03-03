@@ -29,7 +29,7 @@ module.exports = buildSchema(`
     }
 
     type RootMutation {
-        createTask(TaskInput: TaskInput): taskId
+        createTask(TaskInput: TaskInput): Task
         updateTask(TaskData: TaskData): taskId
         removeTask(taskId: String): taskId
     }
