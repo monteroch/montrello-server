@@ -7,19 +7,9 @@ const graphQlSchema = require('./graphql/schemas/index');
 const graphQlresolvers = require('./graphql/resolvers/index');
 
 const app = express();
+const port = 5500;
 
 app.use(bodyParser.json());
-
-app.use((req, res, next) => {
-    res.setHeader('Access-Control-Allow-Origin', 'http://localhost:3000');
-    res.setHeader('Access-Control-Allow-Methods', 'POST, GET, OPTIONS');
-    res.setHeader('Access-Control-Allow-Headers', 'Content-Type, Authorization');
-    res.setHeader('Access-Control-Allow-Credentials', 'true');
-    if(req.method === 'OPTIONS'){
-        return res.sendStatus(200);
-    }
-    next();
-});
 
 app.use('/graphql', graphqlHttp({
     schema: graphQlSchema,
@@ -27,10 +17,11 @@ app.use('/graphql', graphqlHttp({
     graphiql: true
 }));
 
-mongoose.connect('mongodb://localhost:4444/montrello', { useNewUrlParser: true, useUnifiedTopology: true })
+mongoose.connect('mongodb://localhost:4444/montrello', { useNewUrlParser: true, useUnifiedTopology: true }) //for development
+// mongoose.connect('mongodb://montrellodb:4444/montrello', { useNewUrlParser: true, useUnifiedTopology: true })
 .then( () => {
-    var server = app.listen(4500, () => {
-        console.log('[Montrello] running on port 4500');
+    var server = app.listen(port, () => {
+        console.log(`[Montrello] running on port ${port}`);
     });
 })
 .catch( error => {
@@ -39,5 +30,5 @@ mongoose.connect('mongodb://localhost:4444/montrello', { useNewUrlParser: true, 
 
 
 app.get('/', (req, res) => {
-    res.send('[Montrello] running on port 4500');
+    res.send(`[Montrello] running on port ${port}`);
 });
