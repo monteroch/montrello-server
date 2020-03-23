@@ -17,8 +17,8 @@ app.use('/graphql', graphqlHttp({
     graphiql: true
 }));
 
-mongoose.connect('mongodb://localhost:4444/montrello', { useNewUrlParser: true, useUnifiedTopology: true }) //for development
-// mongoose.connect('mongodb://montrellodb:4444/montrello', { useNewUrlParser: true, useUnifiedTopology: true })
+// mongoose.connect('mongodb://localhost:4444/montrello', { useNewUrlParser: true, useUnifiedTopology: true }) //for development
+mongoose.connect('mongodb://montrellodb:4444/montrello', { useNewUrlParser: true, useUnifiedTopology: true })
 .then( () => {
     var server = app.listen(port, () => {
         console.log(`[Montrello] running on port ${port}`);
